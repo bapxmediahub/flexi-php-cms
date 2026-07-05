@@ -1,0 +1,496 @@
+flowchart LR
+classDef route fill:#e3f2fd,stroke:#1976d2,color:#0d47a1
+classDef handler fill:#fff3e0,stroke:#f57c00,color:#e65100
+classDef service fill:#e8f5e9,stroke:#388e3c,color:#1b5e20
+classDef storage fill:#fff8e1,stroke:#ff8f00,color:#e65100
+classDef schema fill:#e0f7fa,stroke:#00838f,color:#006064
+classDef asset fill:#f3e5f5,stroke:#7b1fa2,color:#4a148c
+classDef doc fill:#ede7f6,stroke:#5e35b1,color:#311b92
+classDef tool fill:#e0f7fa,stroke:#00838f,color:#006064
+classDef gap fill:#ffebee,stroke:#c62828,color:#b71c1c
+%% Do not edit by hand. Regenerate with php tools/generate-project-map.php.
+%% Summary: {"routes":23,"handlers":23,"core_functions":124,"all_functions":151,"admin_functions":1,"api_functions":2,"action_schemas":4,"mcp_tools":3,"storage_files":3,"asset_files":51,"doc_files":19,"tool_files":5,"duplicate_basenames":2,"duplicate_functions":0,"empty_directories":0,"gap_count":3}
+subgraph ROUTE_PUBLIC["PUBLIC routes"]
+r_405c0a3640e4["GET /404.php"]:::route
+r_b903dcc3334d["GET /500.php"]:::route
+r_08571bc9cac4["GET /blog-post.php"]:::route
+r_07af2e8ab262["GET /blog.php"]:::route
+r_d20f64acc6e7["GET /"]:::route
+r_9a2dc9e00428["POST/GET /mcp.php"]:::route
+r_baed0005b379["GET /sitemap.php"]:::route
+end
+subgraph ROUTE_ADMIN["ADMIN routes"]
+r_e1943acbb973["GET /admin/ai-writer"]:::route
+r_d264841094ec["GET /admin/export"]:::route
+r_f30039d991b4["GET /admin"]:::route
+r_19178d510052["GET /admin/login"]:::route
+r_62cd1fbc46b3["GET /admin/logout"]:::route
+r_ceacf526517d["GET /admin/media"]:::route
+r_0fae37180a55["GET /admin/post-edit"]:::route
+r_2c6baf275b5a["GET /admin/posts"]:::route
+r_0b0179113265["GET /admin/reels"]:::route
+r_bb858a7e0462["GET /admin/settings"]:::route
+r_41ef409395c8["GET /admin/tickets"]:::route
+end
+subgraph ROUTE_API["API / MCP routes"]
+r_4650e34b21cb["POST/GET /api/appointments.php"]:::route
+r_24bf61723845["POST/GET /api/booking.php"]:::route
+r_2a5cb052401f["POST/GET /api/support-bot.php"]:::route
+r_614702f0bb42["POST/GET /api/tickets.php"]:::route
+r_dd5791dfeee0["POST/GET /api/weekly-blog.php"]:::route
+end
+subgraph HANDLERS["PHP handlers"]
+h_76a1b46c9883["404.php"]:::handler
+h_375527cd5520["500.php"]:::handler
+h_ea91a1a3c172["admin/ai-writer.php"]:::handler
+h_ce1d52370b4c["admin/export.php"]:::handler
+h_f2b5f4377422["admin/index.php"]:::handler
+h_0f73e20aa4b0["admin/login.php"]:::handler
+h_9349a58b90a7["admin/logout.php"]:::handler
+h_18c6ea5c5281["admin/media.php"]:::handler
+h_5a8389cdc5be["admin/post-edit.php"]:::handler
+h_556fa4ab8691["admin/posts.php"]:::handler
+h_80ee0859eb80["admin/reels.php"]:::handler
+h_ee79f8210e9a["admin/settings.php"]:::handler
+h_ff183bea7435["admin/tickets.php"]:::handler
+h_f31e75557bcb["api/appointments.php"]:::handler
+h_92ea25a1c5b6["api/booking.php"]:::handler
+h_c260b387c3ed["api/support-bot.php"]:::handler
+h_e2d2d748928d["api/tickets.php"]:::handler
+h_e13b847c6dd9["api/weekly-blog.php"]:::handler
+h_61a627b3b516["blog-post.php"]:::handler
+h_6a6a00710c5a["blog.php"]:::handler
+h_bb6499b8e938["index.php"]:::handler
+h_17a561f0a3f7["mcp.php"]:::handler
+h_73e7141b9250["sitemap.php"]:::handler
+end
+subgraph CORE["Core services / functions"]
+s_6b23354be72c["absolute_url()"]:::service
+s_38220ad335ae["admin_media_src()"]:::service
+s_097b8f234da1["appointment_availability_summary()"]:::service
+s_22bd30c20ce2["appointment_date_status()"]:::service
+s_ed61d9a36bf1["appointment_hours_for_date()"]:::service
+s_f504fac2176c["appointment_time_slots()"]:::service
+s_9f90b7135007["available_appointment_slots()"]:::service
+s_2536d33b6fac["base64url_encode_string()"]:::service
+s_11d5f9ea7b15["booked_appointment_times()"]:::service
+s_f1a55f0ef110["booking_email_template()"]:::service
+s_92d92c81f67c["call_google_ai_studio()"]:::service
+s_558597549d26["canonical_reel_url()"]:::service
+s_fd955373c19b["canonical_youtube_short_url()"]:::service
+s_a19d40e5a157["create_appointment()"]:::service
+s_d52f2555c8dd["create_support_feedback()"]:::service
+s_189a971885f6["create_support_ticket()"]:::service
+s_b75b746e72be["csrf_token()"]:::service
+s_f7bdc2e5baa3["current_mail_settings()"]:::service
+s_2135b9a65c73["delete_blog_post()"]:::service
+s_c9b2f5f8aad3["delete_reel()"]:::service
+s_58e6b3a414a1["e()"]:::service
+s_d7bf6aae7463["find_blog_post()"]:::service
+s_1653fa6ab0cc["find_reel()"]:::service
+s_d88ca54bbfdf["flexifeet_holiday_dates()"]:::service
+s_7e839b48fade["flexifeet_problem_topics()"]:::service
+s_9534f8eee50a["flexifeet_product_topics()"]:::service
+s_425500c470a0["flexifeet_support_apply_language()"]:::service
+s_354256eaea33["flexifeet_support_clean_gemma_text()"]:::service
+s_53518cee3635["flexifeet_support_detect_language()"]:::service
+s_cc14374cecba["flexifeet_support_direct_facts()"]:::service
+s_c25b44bcda58["flexifeet_support_enforce_grounded_reply()"]:::service
+s_98243cb14ecb["flexifeet_support_enforce_required_facts()"]:::service
+s_9b40e8be2dd5["flexifeet_support_final_answer_prompt()"]:::service
+s_1765500ac6cd["flexifeet_support_gemma_prompt()"]:::service
+s_809da354dd4c["flexifeet_support_grounding_context()"]:::service
+s_80f42982f9f5["flexifeet_support_grounding_documents()"]:::service
+s_3f60cd1a0156["flexifeet_support_grounding_index()"]:::service
+s_82929117a0f6["flexifeet_support_grounding_sources()"]:::service
+s_d40d71fd34ca["flexifeet_support_is_greeting()"]:::service
+s_777fa8a82995["flexifeet_support_is_identity_question()"]:::service
+s_7f428f7da538["flexifeet_support_localized_prefix()"]:::service
+s_a2757f8fc229["flexifeet_support_local_reply()"]:::service
+s_64809cbd0076["flexifeet_support_project_text()"]:::service
+s_80a112b8b9e6["flexifeet_support_public_snippet()"]:::service
+s_b05d3ce6c259["flexifeet_support_reply()"]:::service
+s_67160f3b67ff["flexifeet_support_response_id()"]:::service
+s_c85a273dbd5b["flexifeet_support_scope_tokens_for_language()"]:::service
+s_ecb78770ab6c["flexifeet_support_search()"]:::service
+s_86e36e8b07e4["flexifeet_support_snippet()"]:::service
+s_1c154496e9ea["flexifeet_support_text_has_model_notes()"]:::service
+s_146beef7b6f3["flexifeet_support_tokenize()"]:::service
+s_87606c625df0["google_ai_configured()"]:::service
+s_dadef110790f["google_api_json_post()"]:::service
+s_e28dbab4da90["google_connection_checks()"]:::service
+s_5f9fc70af2db["google_http_get()"]:::service
+s_03397cbe2489["google_http_post()"]:::service
+s_1524790940ef["google_pagespeed_report()"]:::service
+s_75d3b3151022["google_seo_report()"]:::service
+s_1715616a3371["google_service_account_ready()"]:::service
+s_260564115aa4["google_service_account_token()"]:::service
+s_9de1187a43c1["gtag()"]:::service
+s_2db556f9082c["handle_media_upload()"]:::service
+s_2a3eef2c4f32["is_admin()"]:::service
+s_1e4766b70513["is_social_reel_url()"]:::service
+s_a89d75e24da1["is_youtube_short_url()"]:::service
+s_23226070561b["list_media_files()"]:::service
+s_150803dd4837["markdown_href()"]:::service
+s_25bb59444f31["normalize_text()"]:::service
+s_c16036c10e14["notify_booking_emails()"]:::service
+s_f91763ab779b["page_description()"]:::service
+s_913344e17c8c["post_canonical_path()"]:::service
+s_0fbed345f29b["post_noindex()"]:::service
+s_7de2de2a5a8c["post_seo_description()"]:::service
+s_04e58e8611ce["post_seo_title()"]:::service
+s_3e108c197d24["post_social_image()"]:::service
+s_91bc84ed659d["read_appointments()"]:::service
+s_f94bb298a3da["read_blog_posts()"]:::service
+s_7be3c24d99b3["read_json_file()"]:::service
+s_0780d16603e3["read_reels()"]:::service
+s_edf74b85d121["read_support_feedback()"]:::service
+s_cff6e3ad9627["read_support_tickets()"]:::service
+s_beed7d02279b["recommended_appointment_slots()"]:::service
+s_18cac0c67e83["reel_thumbnail_from_url()"]:::service
+s_a70ac5cb6fbd["reel_title_from_url()"]:::service
+s_ef559aae503f["render_agent_discovery_tags()"]:::service
+s_f664fdafc53b["render_google_adsense()"]:::service
+s_b91427580e00["render_google_analytics()"]:::service
+s_79964210e2ec["render_google_verification()"]:::service
+s_d82491e630ac["render_json_ld()"]:::service
+s_63c011440bb4["render_markdown_block()"]:::service
+s_2f19753fdcda["render_markdown_inline()"]:::service
+s_84aec7ffa2f3["render_post_content()"]:::service
+s_7ef30e4a3b8e["render_seo_tags()"]:::service
+s_083bc6f9d705["require_admin()"]:::service
+s_fa894967124b["sanitize_blog_slug()"]:::service
+s_0c9f2d66d385["sanitize_external_url()"]:::service
+s_cdd2156dd47a["save_appointments()"]:::service
+s_bbb1e74464aa["save_blog_post()"]:::service
+s_539523cff9fd["save_blog_posts()"]:::service
+s_7b25b22d0bf4["save_json_file()"]:::service
+s_a7db28ecd031["save_mail_settings()"]:::service
+s_26bb5e2ca362["save_reel()"]:::service
+s_d3891a983c5c["save_reels()"]:::service
+s_307bb7e9c4e2["save_support_feedback()"]:::service
+s_b540ca40ecf9["save_support_tickets()"]:::service
+s_0107b3191bb8["send_smtp_mail()"]:::service
+s_602c87905e23["seo_field()"]:::service
+s_1714eeebe863["seo_score_post()"]:::service
+s_01b0fc0a5879["slugify()"]:::service
+s_724c6d99df5e["smtp_command()"]:::service
+s_b113beb3e62a["smtp_configured()"]:::service
+s_0e9c2a724c1b["smtp_read()"]:::service
+s_ed5ebdd9ac04["start_app_session()"]:::service
+s_43e96dd5804a["storage_bootstrap()"]:::service
+s_5972cac53ed3["support_bot_reply()"]:::service
+s_744c80e818e2["support_service_suggestions()"]:::service
+s_5f03ad9b6317["unique_blog_slug()"]:::service
+s_7b37642c83dd["update_appointment_status()"]:::service
+s_b50beaf7f351["update_reel_order()"]:::service
+s_297bd258ddf5["update_support_ticket_status()"]:::service
+s_318e8e2d2698["verify_csrf()"]:::service
+s_d76f05152668["youtube_short_title_from_id()"]:::service
+s_cb6dc25cf845["youtube_thumbnail_from_id()"]:::service
+s_a8368d2b3f64["youtube_video_id_from_url()"]:::service
+end
+subgraph SCHEMA["Actions, MCP tools, and schemas"]
+schema_a0a42370bac6["admin/posts.php actions: delete"]:::schema
+schema_4748f6449988["admin/reels.php actions: delete, order, save"]:::schema
+schema_37c0a3be53fd["admin/settings.php actions: smtp_test"]:::schema
+schema_c810eb9a0d9b["api/support-bot.php actions: availability, booking, feedback, message, ticket"]:::schema
+schema_dfaae73bb70e["MCP tool: flexifeet-booking-mcp / preferred_date:string"]:::schema
+schema_8bb6d3758f60["MCP tool: get_site_context"]:::schema
+schema_05a2541129d3["MCP tool: book_appointment / name:string, phone:string, email:string, preferred_date:string, preferred_time:string, visit_type:string, notes:string"]:::schema
+schema_da4079a3865c["admin/tickets.php functions: updateTicketStatus"]:::schema
+schema_c5d8a99768de["mcp.php functions: mcp_error, mcp_result"]:::schema
+schema_da7e6b4b6cf6["tests/run.php functions: assert_contains, assert_same, assert_true, run_tool_or_fail"]:::schema
+schema_eed03a96e248["tools/generate-project-map.php functions: duplicate_groups, empty_directories, esc, extract_actions, extract_fetches, extract_functions, extract_mcp_tools, extract_requires, list_files, node_id, php_files, read_file_safe, rel, route_for_php, storage_constants"]:::schema
+schema_658f4405e604["tools/seed-flexifeet-topic-blogs.php functions: post_content, source_links"]:::schema
+schema_17c01dbdccab["tools/smoke-local.php functions: available_port, http_request, wait_for_server"]:::schema
+end
+subgraph STORAGE["Storage"]
+d_d570d9873d18["storage/blog-posts.json"]:::storage
+d_5717bb44ffa4["storage/instagram-reels.json"]:::storage
+d_990916ec9bb3["storage/youtube-shorts-cache.json"]:::storage
+end
+subgraph ASSETS["Assets"]
+a_84e71b1c2ef7["admin/flexi-admin.css"]:::asset
+a_8651bd0a7d84["assets/app.js"]:::asset
+a_0716222215cb["assets/images/banner-foot-problems.jpg"]:::asset
+a_12115e0a2bfa["assets/images/banner-insole-milling.jpg"]:::asset
+a_2709458609af["assets/images/banner-pressure-sensors.jpg"]:::asset
+a_40260730c6c5["assets/images/conditions/amputation.jpg"]:::asset
+a_8adb6e263134["assets/images/conditions/bunions.jpg"]:::asset
+a_ba833ae0f8ac["assets/images/conditions/calluses-corns.jpg"]:::asset
+a_b0624ef1d15f["assets/images/conditions/charcot-foot-updated.jpg"]:::asset
+a_563e28652a84["assets/images/conditions/charcot-foot.jpg"]:::asset
+a_fa84f43e5b57["assets/images/conditions/diabetic-neuropathy-reference.png"]:::asset
+a_4c66010c2dc1["assets/images/conditions/diabetic-neuropathy-regenerated.png"]:::asset
+a_ce8f346bcfae["assets/images/conditions/diabetic-neuropathy.jpg"]:::asset
+a_e222b091a9ac["assets/images/conditions/flat-feet.jpg"]:::asset
+a_17d47d4381bb["assets/images/conditions/foot-ulcers.jpg"]:::asset
+a_a10c592c8f35["assets/images/conditions/hammer-toes.jpg"]:::asset
+a_6dff27532581["assets/images/conditions/heel-pain.jpg"]:::asset
+a_99805935fe7c["assets/images/conditions/ingrown-toenails.jpg"]:::asset
+a_76594f1f0aa1["assets/images/conditions/poor-circulation.jpg"]:::asset
+a_8da6e1fcce87["assets/images/favicon.png"]:::asset
+a_a1faecb643b8["assets/images/flexi-feet-logo.png"]:::asset
+a_739cd4aef8e9["assets/images/foot-scanning-monitor.png"]:::asset
+a_576f0082fc47["assets/images/foot-scanning-technology.png"]:::asset
+a_b36d99c925eb["assets/images/generated/black-compression-socks.png"]:::asset
+a_22b16394cf8e["assets/images/generated/brown-medical-sandal.png"]:::asset
+a_30e52817c79a["assets/images/generated/custom-orthotic-insoles.png"]:::asset
+a_68ad14db3aa6["assets/images/generated/diabetic-black-shoes.png"]:::asset
+a_725d4f69753b["assets/images/generated/foot-pressure-analysis-screen.png"]:::asset
+a_f669ce940fc4["assets/images/generated/navy-knit-diabetic-shoe.png"]:::asset
+a_b85504aeeecb["assets/images/generated/orthotic-in-medical-shoe.png"]:::asset
+a_9cd68643f68e["assets/images/generated/pink-knit-comfort-shoe.png"]:::asset
+a_a7ff84df6936["assets/images/generated/tan-support-sandals.png"]:::asset
+a_b44d3559492d["assets/images/open-source/bunion.jpg"]:::asset
+a_5b52bd52abe2["assets/images/open-source/charcot-foot.jpg"]:::asset
+a_3b35f9691f1c["assets/images/open-source/corn-callus.jpg"]:::asset
+a_84fc5696aef5["assets/images/open-source/diabetic-foot-ulcer.jpg"]:::asset
+a_739c7bc0566a["assets/images/open-source/flat-foot.jpg"]:::asset
+a_1c422c9088f4["assets/images/open-source/foot-pressure.png"]:::asset
+a_1d66e1802165["assets/images/open-source/gait-cycle.png"]:::asset
+a_a3b26fa7cabc["assets/images/open-source/heel-spur.png"]:::asset
+a_ec703710f8c6["assets/images/open-source/plantar-fasciitis-insoles.jpg"]:::asset
+a_86cf5ff57384["assets/images/products/adjustable-medical-sandal.png"]:::asset
+a_7f39dd22246f["assets/images/products/custom-orthotic-insoles.png"]:::asset
+a_a13e38ee300d["assets/images/products/diabetic-compression-socks.png"]:::asset
+a_ce6a53d3b852["assets/images/products/navy-knit-walking-shoe.png"]:::asset
+a_47b37cc8beec["assets/images/products/orthotic-in-shoe.png"]:::asset
+a_daa049636297["assets/images/products/pink-knit-comfort-shoe.png"]:::asset
+a_d04066262ed9["assets/images/products/supportive-comfort-sandals.png"]:::asset
+a_6ddab38b715c["assets/images/products/therapeutic-comfort-shoes.png"]:::asset
+a_cf67025eeb21["assets/images/shoe-web.png"]:::asset
+a_520a92b02b2c["assets/styles.css"]:::asset
+end
+subgraph DOCS["Docs and agent grounding"]
+doc_37dd68363fc1["AGENTS.md"]:::doc
+doc_e386e60c7094["Design.md"]:::doc
+doc_32aaf9c3fff2["docs/systematic-map.mmd"]:::doc
+doc_b8d322cca13b["index.md"]:::doc
+doc_bfd74951d763["llms.txt"]:::doc
+doc_6d8defb3bd90["map.mmd"]:::doc
+doc_20b5c5c53e8c["model/admin-console.md"]:::doc
+doc_b3941e9dcbaa["model/block-diffusion-indexing.md"]:::doc
+doc_ff2ef08cc90a["model/blog-seo.md"]:::doc
+doc_5050b1662702["model/booking-api.md"]:::doc
+doc_60bddaeec8e9["model/business.md"]:::doc
+doc_da90c342044e["model/data-stores.md"]:::doc
+doc_2a1a1fc7c453["model/frontend-support-bot.md"]:::doc
+doc_e14a7ca35650["model/index.md"]:::doc
+doc_63da2a7d0513["model/log.md"]:::doc
+doc_e5926a120414["model/reels-media.md"]:::doc
+doc_257a501db05d["model/support-model.md"]:::doc
+doc_8ec9a00bfd09["README.md"]:::doc
+doc_377f6a321ea4["robots.txt"]:::doc
+end
+subgraph TOOLS["Tools and tests"]
+t_10d140e3168e["tests/run.php"]:::tool
+t_41b781ec6d61["tools/generate-project-map.php"]:::tool
+t_d57bc49d0e23["tools/seed-flexifeet-topic-blogs.php"]:::tool
+t_268c4a334bdb["tools/smoke-local.php"]:::tool
+t_14121ca6991a["tools/validate-project-map.php"]:::tool
+end
+subgraph GAPS["Gaps and follow-ups"]
+g0["[low] legacy_storage_name: storage/instagram-reels.json stores YouTube Shorts data under a legacy filename"]:::gap
+g1["[medium] stale_docs_copy: Docs still contain older Instagram/support-model wording"]:::gap
+g2["[info] duplicate_basename: index.php appears in admin/index.php, index.php"]:::gap
+end
+r_405c0a3640e4 --> h_76a1b46c9883
+r_b903dcc3334d --> h_375527cd5520
+r_e1943acbb973 --> h_ea91a1a3c172
+r_d264841094ec --> h_ce1d52370b4c
+r_f30039d991b4 --> h_f2b5f4377422
+r_19178d510052 --> h_0f73e20aa4b0
+r_62cd1fbc46b3 --> h_9349a58b90a7
+r_ceacf526517d --> h_18c6ea5c5281
+r_0fae37180a55 --> h_5a8389cdc5be
+r_2c6baf275b5a --> h_556fa4ab8691
+r_0b0179113265 --> h_80ee0859eb80
+r_bb858a7e0462 --> h_ee79f8210e9a
+r_41ef409395c8 --> h_ff183bea7435
+r_4650e34b21cb --> h_f31e75557bcb
+r_24bf61723845 --> h_92ea25a1c5b6
+r_2a5cb052401f --> h_c260b387c3ed
+r_614702f0bb42 --> h_e2d2d748928d
+r_dd5791dfeee0 --> h_e13b847c6dd9
+r_08571bc9cac4 --> h_61a627b3b516
+r_07af2e8ab262 --> h_6a6a00710c5a
+r_d20f64acc6e7 --> h_bb6499b8e938
+r_9a2dc9e00428 --> h_17a561f0a3f7
+r_baed0005b379 --> h_73e7141b9250
+h_76a1b46c9883 --> s_2b6d4553a602
+h_375527cd5520 --> s_2b6d4553a602
+h_ea91a1a3c172 --> s_2b6d4553a602
+h_ce1d52370b4c --> s_2b6d4553a602
+h_f2b5f4377422 --> s_2b6d4553a602
+h_f2b5f4377422 -.fetches.-> h_f31e75557bcb
+h_0f73e20aa4b0 --> s_2b6d4553a602
+h_9349a58b90a7 --> s_2b6d4553a602
+h_18c6ea5c5281 --> s_2b6d4553a602
+h_5a8389cdc5be --> s_2b6d4553a602
+h_556fa4ab8691 --> s_2b6d4553a602
+h_80ee0859eb80 --> s_2b6d4553a602
+h_ee79f8210e9a --> s_2b6d4553a602
+h_ff183bea7435 --> s_2b6d4553a602
+h_ff183bea7435 -.fetches.-> h_e2d2d748928d
+h_f31e75557bcb --> s_2b6d4553a602
+h_92ea25a1c5b6 --> s_2b6d4553a602
+h_c260b387c3ed --> s_2b6d4553a602
+h_e2d2d748928d --> s_2b6d4553a602
+h_e13b847c6dd9 --> s_2b6d4553a602
+h_61a627b3b516 --> s_2b6d4553a602
+h_6a6a00710c5a --> s_2b6d4553a602
+h_bb6499b8e938 --> s_2b6d4553a602
+h_17a561f0a3f7 --> s_2b6d4553a602
+h_73e7141b9250 --> s_2b6d4553a602
+s_2b6d4553a602["includes/functions.php core"]:::service
+s_2b6d4553a602 --> s_6b23354be72c
+s_2b6d4553a602 --> s_38220ad335ae
+s_2b6d4553a602 --> s_097b8f234da1
+s_2b6d4553a602 --> s_22bd30c20ce2
+s_2b6d4553a602 --> s_ed61d9a36bf1
+s_2b6d4553a602 --> s_f504fac2176c
+s_2b6d4553a602 --> s_9f90b7135007
+s_2b6d4553a602 --> s_2536d33b6fac
+s_2b6d4553a602 --> s_11d5f9ea7b15
+s_2b6d4553a602 --> s_f1a55f0ef110
+s_2b6d4553a602 --> s_92d92c81f67c
+s_2b6d4553a602 --> s_558597549d26
+s_2b6d4553a602 --> s_fd955373c19b
+s_2b6d4553a602 --> s_a19d40e5a157
+s_2b6d4553a602 --> s_d52f2555c8dd
+s_2b6d4553a602 --> s_189a971885f6
+s_2b6d4553a602 --> s_b75b746e72be
+s_2b6d4553a602 --> s_f7bdc2e5baa3
+s_2b6d4553a602 --> s_2135b9a65c73
+s_2b6d4553a602 --> s_c9b2f5f8aad3
+s_2b6d4553a602 --> s_58e6b3a414a1
+s_2b6d4553a602 --> s_d7bf6aae7463
+s_2b6d4553a602 --> s_1653fa6ab0cc
+s_2b6d4553a602 --> s_d88ca54bbfdf
+s_2b6d4553a602 --> s_7e839b48fade
+s_2b6d4553a602 --> s_9534f8eee50a
+s_2b6d4553a602 --> s_425500c470a0
+s_2b6d4553a602 --> s_354256eaea33
+s_2b6d4553a602 --> s_53518cee3635
+s_2b6d4553a602 --> s_cc14374cecba
+s_2b6d4553a602 --> s_c25b44bcda58
+s_2b6d4553a602 --> s_98243cb14ecb
+s_2b6d4553a602 --> s_9b40e8be2dd5
+s_2b6d4553a602 --> s_1765500ac6cd
+s_2b6d4553a602 --> s_809da354dd4c
+s_2b6d4553a602 --> s_80f42982f9f5
+s_2b6d4553a602 --> s_3f60cd1a0156
+s_2b6d4553a602 --> s_82929117a0f6
+s_2b6d4553a602 --> s_d40d71fd34ca
+s_2b6d4553a602 --> s_777fa8a82995
+s_2b6d4553a602 --> s_7f428f7da538
+s_2b6d4553a602 --> s_a2757f8fc229
+s_2b6d4553a602 --> s_64809cbd0076
+s_2b6d4553a602 --> s_80a112b8b9e6
+s_2b6d4553a602 --> s_b05d3ce6c259
+s_2b6d4553a602 --> s_67160f3b67ff
+s_2b6d4553a602 --> s_c85a273dbd5b
+s_2b6d4553a602 --> s_ecb78770ab6c
+s_2b6d4553a602 --> s_86e36e8b07e4
+s_2b6d4553a602 --> s_1c154496e9ea
+s_2b6d4553a602 --> s_146beef7b6f3
+s_2b6d4553a602 --> s_87606c625df0
+s_2b6d4553a602 --> s_dadef110790f
+s_2b6d4553a602 --> s_e28dbab4da90
+s_2b6d4553a602 --> s_5f9fc70af2db
+s_2b6d4553a602 --> s_03397cbe2489
+s_2b6d4553a602 --> s_1524790940ef
+s_2b6d4553a602 --> s_75d3b3151022
+s_2b6d4553a602 --> s_1715616a3371
+s_2b6d4553a602 --> s_260564115aa4
+s_2b6d4553a602 --> s_9de1187a43c1
+s_2b6d4553a602 --> s_2db556f9082c
+s_2b6d4553a602 --> s_2a3eef2c4f32
+s_2b6d4553a602 --> s_1e4766b70513
+s_2b6d4553a602 --> s_a89d75e24da1
+s_2b6d4553a602 --> s_23226070561b
+s_2b6d4553a602 --> s_150803dd4837
+s_2b6d4553a602 --> s_25bb59444f31
+s_2b6d4553a602 --> s_c16036c10e14
+s_2b6d4553a602 --> s_f91763ab779b
+s_2b6d4553a602 --> s_913344e17c8c
+s_2b6d4553a602 --> s_0fbed345f29b
+s_2b6d4553a602 --> s_7de2de2a5a8c
+s_2b6d4553a602 --> s_04e58e8611ce
+s_2b6d4553a602 --> s_3e108c197d24
+s_2b6d4553a602 --> s_91bc84ed659d
+s_2b6d4553a602 --> s_f94bb298a3da
+s_2b6d4553a602 --> s_7be3c24d99b3
+s_2b6d4553a602 --> s_0780d16603e3
+s_2b6d4553a602 --> s_edf74b85d121
+s_2b6d4553a602 --> s_cff6e3ad9627
+s_2b6d4553a602 --> s_beed7d02279b
+s_2b6d4553a602 --> s_18cac0c67e83
+s_2b6d4553a602 --> s_a70ac5cb6fbd
+s_2b6d4553a602 --> s_ef559aae503f
+s_2b6d4553a602 --> s_f664fdafc53b
+s_2b6d4553a602 --> s_b91427580e00
+s_2b6d4553a602 --> s_79964210e2ec
+s_2b6d4553a602 --> s_d82491e630ac
+s_2b6d4553a602 --> s_63c011440bb4
+s_2b6d4553a602 --> s_2f19753fdcda
+s_2b6d4553a602 --> s_84aec7ffa2f3
+s_2b6d4553a602 --> s_7ef30e4a3b8e
+s_2b6d4553a602 --> s_083bc6f9d705
+s_2b6d4553a602 --> s_fa894967124b
+s_2b6d4553a602 --> s_0c9f2d66d385
+s_2b6d4553a602 --> s_cdd2156dd47a
+s_2b6d4553a602 --> s_bbb1e74464aa
+s_2b6d4553a602 --> s_539523cff9fd
+s_2b6d4553a602 --> s_7b25b22d0bf4
+s_2b6d4553a602 --> s_a7db28ecd031
+s_2b6d4553a602 --> s_26bb5e2ca362
+s_2b6d4553a602 --> s_d3891a983c5c
+s_2b6d4553a602 --> s_307bb7e9c4e2
+s_2b6d4553a602 --> s_b540ca40ecf9
+s_2b6d4553a602 --> s_0107b3191bb8
+s_2b6d4553a602 --> s_602c87905e23
+s_2b6d4553a602 --> s_1714eeebe863
+s_2b6d4553a602 --> s_01b0fc0a5879
+s_2b6d4553a602 --> s_724c6d99df5e
+s_2b6d4553a602 --> s_b113beb3e62a
+s_2b6d4553a602 --> s_0e9c2a724c1b
+s_2b6d4553a602 --> s_ed5ebdd9ac04
+s_2b6d4553a602 --> s_43e96dd5804a
+s_2b6d4553a602 --> s_5972cac53ed3
+s_2b6d4553a602 --> s_744c80e818e2
+s_2b6d4553a602 --> s_5f03ad9b6317
+s_2b6d4553a602 --> s_7b37642c83dd
+s_2b6d4553a602 --> s_b50beaf7f351
+s_2b6d4553a602 --> s_297bd258ddf5
+s_2b6d4553a602 --> s_318e8e2d2698
+s_2b6d4553a602 --> s_d76f05152668
+s_2b6d4553a602 --> s_cb6dc25cf845
+s_2b6d4553a602 --> s_a8368d2b3f64
+h_556fa4ab8691 -.actions.-> schema_a0a42370bac6
+h_80ee0859eb80 -.actions.-> schema_4748f6449988
+h_ee79f8210e9a -.actions.-> schema_37c0a3be53fd
+h_c260b387c3ed -.actions.-> schema_c810eb9a0d9b
+h_17a561f0a3f7 -.tool-schema.-> schema_dfaae73bb70e
+h_17a561f0a3f7 -.tool-schema.-> schema_8bb6d3758f60
+h_17a561f0a3f7 -.tool-schema.-> schema_05a2541129d3
+h_ff183bea7435 -.defines.-> schema_da4079a3865c
+h_17a561f0a3f7 -.defines.-> schema_c5d8a99768de
+s_2b6d4553a602 --> d_d570d9873d18
+s_2b6d4553a602 --> d_5717bb44ffa4
+s_2b6d4553a602 --> d_990916ec9bb3
+h_bb6499b8e938 -.uses.-> a_8651bd0a7d84
+h_bb6499b8e938 -.uses.-> a_520a92b02b2c
+h_bb6499b8e938 -.uses.-> a_84e71b1c2ef7
+doc_37dd68363fc1 -.points-to.-> doc_37dd68363fc1
+doc_37dd68363fc1 -.points-to.-> doc_b8d322cca13b
+doc_37dd68363fc1 -.points-to.-> doc_bfd74951d763
+doc_37dd68363fc1 -.points-to.-> doc_32aaf9c3fff2
+g0 -.tracked-by.-> doc_32aaf9c3fff2
+g1 -.tracked-by.-> doc_32aaf9c3fff2
+g2 -.tracked-by.-> doc_32aaf9c3fff2
+t_41b781ec6d61 -.regenerates.-> doc_32aaf9c3fff2
+t_41b781ec6d61 -.mirrors.-> doc_6d8defb3bd90
+t_14121ca6991a -.validates.-> doc_32aaf9c3fff2

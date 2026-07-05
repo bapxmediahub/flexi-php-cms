@@ -48,12 +48,24 @@ if ($method === 'tools/list') {
     mcp_result($id, [
         'tools' => [[
             'name' => 'get_available_slots',
-            'description' => 'Return available Flexi Feet appointment slots for a date, using existing admin appointment records.',
+            'description' => 'Return available Flexi Feet appointment times for one future date within the next 3 months. The available_slots array contains time strings only.',
             'inputSchema' => [
                 'type' => 'object',
                 'required' => ['preferred_date'],
                 'properties' => [
                     'preferred_date' => ['type' => 'string', 'description' => 'YYYY-MM-DD'],
+                ],
+            ],
+        ], [
+            'name' => 'get_site_context',
+            'description' => 'Return Flexi Feet services, product categories, common foot problems, public blog posts, and booking rules for grounded support agents.',
+            'inputSchema' => [
+                'type' => 'object',
+                'properties' => [
+                    'section' => [
+                        'type' => 'string',
+                        'description' => 'Optional: all, services, products, problems, blogs, booking.',
+                    ],
                 ],
             ],
         ], [
@@ -87,12 +99,74 @@ if ($method === 'tools/call') {
         if ($date === '') {
             mcp_error($id, -32602, 'preferred_date is required.');
         }
+        $dateStatus = appointment_date_status($date);
+        if (!$dateStatus['ok']) {
+            mcp_error($id, -32602, $dateStatus['message']);
+        }
+        $summary = appointment_availability_summary($date);
         mcp_result($id, [
             'content' => [[
                 'type' => 'text',
-                'text' => 'Available slots for ' . $date . ': ' . implode(', ', available_appointment_slots($date)),
+                'text' => 'Available times for ' . $date . ': ' . implode(', ', $summary['available_slots']),
             ]],
-            'structuredContent' => appointment_availability_summary($date),
+            'structuredContent' => [
+                'preferred_date' => $date,
+                'date_status' => $summary['date_status'],
+                'available_slots' => $summary['available_slots'],
+                'booked_slots' => $summary['booked_slots'],
+                'slot_format' => 'HH:MM',
+                'range' => ['from' => date('Y-m-d'), 'to' => date('Y-m-d', strtotime('+3 months'))],
+                'closed_dates' => flexifeet_holiday_dates(),
+            ],
+        ]);
+    }
+    if ($name === 'get_site_context') {
+        $section = strtolower(normalize_text($arguments['section'] ?? 'all', 40));
+        $blogs = array_map(static function (array $post): array {
+            return [
+                'title' => $post['title'] ?? '',
+                'slug' => $post['slug'] ?? '',
+                'url' => absolute_url('blog-post.php?slug=' . ($post['slug'] ?? '')),
+                'excerpt' => $post['excerpt'] ?? '',
+                'status' => $post['status'] ?? '',
+            ];
+        }, read_blog_posts(true));
+        $context = [
+            'business' => [
+                'name' => BUSINESS_NAME,
+                'phone' => BUSINESS_PHONE,
+                'email' => BUSINESS_EMAIL,
+                'address' => BUSINESS_ADDRESS,
+                'site_url' => SITE_URL,
+            ],
+            'services' => [
+                'Custom diabetic shoes',
+                'Orthopaedic footwear',
+                'Custom offload insoles',
+                'Flat feet insoles',
+                'Diabetic and compression socks',
+                '3D foot scanning',
+                'Pressure assessment',
+                'Footwear fitting and follow-up',
+            ],
+            'products' => flexifeet_product_topics(),
+            'problems' => flexifeet_problem_topics(),
+            'blogs' => $blogs,
+            'booking' => [
+                'date_range' => ['from' => date('Y-m-d'), 'to' => date('Y-m-d', strtotime('+3 months'))],
+                'closed_dates' => flexifeet_holiday_dates(),
+                'required_fields' => ['name', 'phone', 'email', 'preferred_date', 'preferred_time', 'visit_type'],
+                'visit_types' => ['Foot Assessment', 'Custom Shoes / Footwear Fitting', 'Customised Insole Assessment', 'Pressure Sensor Scan', 'Follow-up'],
+            ],
+        ];
+        $allowed = ['services', 'products', 'problems', 'blogs', 'booking'];
+        $payload = in_array($section, $allowed, true) ? [$section => $context[$section]] : $context;
+        mcp_result($id, [
+            'content' => [[
+                'type' => 'text',
+                'text' => 'Flexi Feet context returned for section: ' . ($section ?: 'all'),
+            ]],
+            'structuredContent' => $payload,
         ]);
     }
     if ($name !== 'book_appointment') {
@@ -112,6 +186,10 @@ if ($method === 'tools/call') {
     }
     if (!filter_var($payload['email'], FILTER_VALIDATE_EMAIL)) {
         mcp_error($id, -32602, 'Invalid email address.');
+    }
+    $dateStatus = appointment_date_status($payload['preferred_date']);
+    if (!$dateStatus['ok']) {
+        mcp_error($id, -32602, $dateStatus['message']);
     }
     $availability = appointment_availability_summary($payload['preferred_date'], $payload['preferred_time']);
     if (!$availability['open']) {

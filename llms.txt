@@ -16,7 +16,16 @@ This file helps AI assistants and search agents find the most useful Flexi Feet 
 
 MCP URL: `https://flexifeet.net/mcp.php`
 
-Use the MCP `get_available_slots` tool first to check real appointment availability from Flexi Feet's appointment records. Then use `book_appointment` when the user has clearly asked to book or request a Flexi Feet appointment and has confirmed an available slot. Required booking fields are:
+Use the MCP `get_site_context` tool first when an agent needs grounded Flexi Feet service, product, condition, blog, or booking context. Use `get_available_slots` to check real appointment availability from Flexi Feet's appointment records. The slot result returns `available_slots` as time strings only, such as `09:00` or `14:30`, for the requested date.
+
+Booking date rules:
+
+- Date format: `YYYY-MM-DD`
+- Allowed range: today through the next 3 months
+- Closed by default: Sundays and configured holiday dates
+- Current known closed dates in the active 2026 window: `2026-08-25`, `2026-08-31`, `2026-09-16`
+
+Use `book_appointment` when the user has clearly asked to book or request a Flexi Feet appointment and has confirmed an available time. Required booking fields are:
 
 - `name`
 - `phone`
@@ -40,6 +49,42 @@ The booking endpoint creates an appointment request and returns an appointment r
 - Diabetic and compression socks
 - 3D foot scanning and pressure assessment
 - Fittings, consultations, follow-ups, and home visit questions
+
+## MCP Site Context
+
+The MCP `get_site_context` tool exposes these sections:
+
+- `services`: Flexi Feet service list and care boundaries
+- `products`: Custom Footwear & Orthopaedic Solutions categories
+- `problems`: Common Foot Problems We Address
+- `blogs`: Published public blog posts with title, URL, and excerpt
+- `booking`: date range, closed dates, visit types, and required booking fields
+- `all`: all of the above
+
+Custom Footwear & Orthopaedic Solutions categories:
+
+- Therapeutic Comfort Shoes
+- Knit Comfort Shoes
+- Walking Shoes
+- Custom Orthotic Insoles
+- Adjustable Medical Sandals
+- In-Shoe Orthotic Fitting
+- Supportive Comfort Sandals
+- Diabetic & Compression Socks
+
+Common Foot Problems We Address:
+
+- Diabetic Neuropathy
+- Foot Ulcers
+- Calluses
+- Corns
+- Poor Circulation
+- Hammer Toes
+- Bunions
+- Flat Feet
+- Charcot Foot
+- Heel Pain
+- Partial Foot Amputation
 
 ## Agent Guidance
 

@@ -12,18 +12,8 @@ $banners = [
     ['url' => 'assets/images/banner-pressure-sensors.jpg', 'alt' => 'Pressure Sensor Technology']
 ];
 
-$problems = [
-    ['Diabetic Neuropathy', 'Nerve damage from high blood sugar leading to tingling, numbness, or burning.', 'assets/images/conditions/diabetic-neuropathy-reference.png'],
-    ['Foot Ulcers', 'Open sores caused by pressure or injury.', 'assets/images/conditions/foot-ulcers.jpg'],
-    ['Calluses & Corns', 'Thickened skin from friction.', 'assets/images/conditions/calluses-corns.jpg'],
-    ['Poor Circulation', 'Reduced blood flow to extremities.', 'assets/images/conditions/poor-circulation.jpg'],
-    ['Hammer Toes', 'Toe deformities causing abnormal bending.', 'assets/images/conditions/hammer-toes.jpg'],
-    ['Bunions', 'Bony bump at the base of the big toe.', 'assets/images/conditions/bunions.jpg'],
-    ['Flat Feet', 'Arches collapse, causing inward roll.', 'assets/images/conditions/flat-feet.jpg'],
-    ['Charcot Foot', 'Serious condition weakening bones.', 'assets/images/conditions/charcot-foot-updated.jpg'],
-    ['Heel Pain', 'Inflammation of plantar fascia.', 'assets/images/conditions/heel-pain.jpg'],
-    ['Amputation', 'Custom footwear and insole support after partial foot amputation.', 'assets/images/conditions/amputation.jpg']
-];
+$problems = flexifeet_problem_topics();
+$products = flexifeet_product_topics();
 
 $faqs = [
     ['DO I WANT to FIX APPOINTMENT?', 'Its always better to fix an appointment. To save your time.'],
@@ -189,13 +179,14 @@ $faqs = [
                 <div class="swiper shorts-swiper">
                     <div class="swiper-wrapper">
                         <?php foreach ($reels as $reel): ?>
+                            <?php $youtubeId = youtube_video_id_from_url((string) ($reel['url'] ?? '')); ?>
                             <div class="swiper-slide">
-                                <a class="shorts-card" href="<?= e($reel['url']) ?>" target="_blank" rel="noopener" aria-label="Open <?= e($reel['title'] ?: 'Flexi Feet Reel') ?>">
-                                    <img src="<?= e($reel['thumbnail']) ?>" alt="<?= e($reel['title'] ?: 'Flexi Feet Instagram Reel') ?>" loading="lazy">
+                                <button class="shorts-card" type="button" data-shorts-video="<?= e($youtubeId) ?>" aria-label="Play <?= e($reel['title'] ?: 'Flexi Feet Short') ?>">
+                                    <img src="<?= e($reel['thumbnail']) ?>" alt="<?= e($reel['title'] ?: 'Flexi Feet YouTube Short') ?>" loading="lazy">
                                     <span class="shorts-play" aria-hidden="true">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                                     </span>
-                                </a>
+                                </button>
                             </div>
                         <?php endforeach; ?>
                     </div>
@@ -210,6 +201,18 @@ $faqs = [
             </div>
         </div>
     </section>
+    <div class="shorts-player" data-shorts-player hidden>
+        <button class="shorts-player-close" type="button" data-shorts-close aria-label="Close video">×</button>
+        <div class="shorts-player-frame">
+            <iframe
+                data-shorts-frame
+                title="Flexi Feet YouTube Short"
+                src=""
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+            ></iframe>
+        </div>
+    </div>
     <?php endif; ?>
 
     <section id="products" class="container reveal">
@@ -221,38 +224,12 @@ $faqs = [
             <div class="product-carousel-wrap">
                 <div class="swiper product-styles-swiper">
                     <div class="swiper-wrapper">
+                <?php foreach ($products as $product): ?>
                 <div class="swiper-slide product-style-card hover-lift">
-                    <img src="assets/images/products/therapeutic-comfort-shoes.png" alt="Therapeutic comfort shoes" loading="lazy">
-                    <p>Therapeutic Comfort Shoes</p>
+                    <img src="<?= e($product['image']) ?>" alt="<?= e($product['name']) ?>" loading="lazy">
+                    <p><?= e($product['name']) ?></p>
                 </div>
-                <div class="swiper-slide product-style-card hover-lift">
-                    <img src="assets/images/products/pink-knit-comfort-shoe.png" alt="Knit comfort shoes" loading="lazy">
-                    <p>Knit Comfort Shoes</p>
-                </div>
-                <div class="swiper-slide product-style-card hover-lift">
-                    <img src="assets/images/products/navy-knit-walking-shoe.png" alt="Walking shoes" loading="lazy">
-                    <p>Walking Shoes</p>
-                </div>
-                <div class="swiper-slide product-style-card hover-lift">
-                    <img src="assets/images/products/custom-orthotic-insoles.png" alt="Custom orthotic insoles" loading="lazy">
-                    <p>Custom Orthotic Insoles</p>
-                </div>
-                <div class="swiper-slide product-style-card hover-lift">
-                    <img src="assets/images/products/adjustable-medical-sandal.png" alt="Adjustable medical sandals" loading="lazy">
-                    <p>Adjustable Medical Sandals</p>
-                </div>
-                <div class="swiper-slide product-style-card hover-lift">
-                    <img src="assets/images/products/orthotic-in-shoe.png" alt="In-shoe orthotic fitting" loading="lazy">
-                    <p>In-Shoe Orthotic Fitting</p>
-                </div>
-                <div class="swiper-slide product-style-card hover-lift">
-                    <img src="assets/images/products/supportive-comfort-sandals.png" alt="Supportive comfort sandals" loading="lazy">
-                    <p>Supportive Comfort Sandals</p>
-                </div>
-                <div class="swiper-slide product-style-card hover-lift">
-                    <img src="assets/images/products/diabetic-compression-socks.png" alt="Diabetic compression socks" loading="lazy">
-                    <p>Diabetic & Compression Socks</p>
-                </div>
+                <?php endforeach; ?>
                     </div>
                     <button class="product-nav product-nav-prev" type="button" aria-label="Previous product">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
@@ -290,11 +267,11 @@ $faqs = [
         <h2 class="section-title">Common Foot Problems We Address</h2>
         <p class="section-subtitle">We specialize in identifying and treating a wide range of conditions that affect diabetic and orthopaedic health.</p>
         <div class="problems-grid">
-            <?php foreach ($problems as $index => $problem): ?>
+            <?php foreach ($problems as $problem): ?>
                 <div class="problem-card">
-                    <img src="<?= $problem[2] ?>" alt="<?= e($problem[0]) ?>" loading="lazy">
-                    <h3><?= e($problem[0]) ?></h3>
-                    <p><?= e($problem[1]) ?></p>
+                    <img src="<?= e($problem['image']) ?>" alt="<?= e($problem['name']) ?>" loading="lazy">
+                    <h3><?= e($problem['name']) ?></h3>
+                    <p><?= e($problem['summary']) ?></p>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -319,18 +296,6 @@ $faqs = [
                 <h3>Choose Your Style</h3>
                 <p>Pick from a variety of fashionable and functional designs.</p>
             </div>
-        </div>
-    </section>
-
-    <section id="faq" class="container reveal">
-        <h2 class="section-title">Q & A</h2>
-        <div class="faq-grid">
-            <?php foreach ($faqs as $faq): ?>
-                <article class="faq-item">
-                    <h3><?= e($faq[0]) ?></h3>
-                    <p><?= e($faq[1]) ?></p>
-                </article>
-            <?php endforeach; ?>
         </div>
     </section>
 
@@ -377,33 +342,33 @@ $faqs = [
                 </div>
             </div>
             <div class="booking-form">
-                <form action="api/booking.php" method="POST" data-booking-form>
+                <form action="api/booking.php" method="POST" data-booking-form aria-label="Flexi Feet appointment request form">
                     <input type="hidden" name="csrf" value="<?= $csrf ?>">
                     <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" name="name" required placeholder="John Doe">
+                        <label for="booking-name">Full Name</label>
+                        <input id="booking-name" type="text" name="name" autocomplete="name" required placeholder="John Doe" data-mcp-field="name">
                     </div>
                     <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="tel" name="phone" required placeholder="+60 12-345 6789">
+                        <label for="booking-phone">Phone Number</label>
+                        <input id="booking-phone" type="tel" name="phone" autocomplete="tel" inputmode="tel" required placeholder="+60 12-345 6789" data-mcp-field="phone">
                     </div>
                     <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" name="email" required placeholder="john@example.com">
+                        <label for="booking-email">Email Address</label>
+                        <input id="booking-email" type="email" name="email" autocomplete="email" inputmode="email" required placeholder="john@example.com" data-mcp-field="email">
                     </div>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                         <div class="form-group">
-                            <label>Preferred Date</label>
-                            <input type="date" name="preferred_date" id="booking-date" required min="<?= date('Y-m-d') ?>">
+                            <label for="booking-date">Preferred Date</label>
+                            <input type="date" name="preferred_date" id="booking-date" required min="<?= date('Y-m-d') ?>" max="<?= date('Y-m-d', strtotime('+3 months')) ?>" data-mcp-field="preferred_date">
                         </div>
                         <div class="form-group">
-                            <label>Preferred Time</label>
-                            <input type="time" name="preferred_time" id="booking-time" required min="09:00" max="18:00">
+                            <label for="booking-time">Preferred Time</label>
+                            <input type="time" name="preferred_time" id="booking-time" required min="09:00" max="18:00" step="1800" data-mcp-field="preferred_time">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Visit Type</label>
-                        <select name="visit_type" required>
+                        <label for="booking-visit-type">Visit Type</label>
+                        <select id="booking-visit-type" name="visit_type" required data-mcp-field="visit_type">
                             <option value="">Select visit type</option>
                             <option>Foot Assessment</option>
                             <option>Custom Shoes / Footwear Fitting</option>
@@ -414,8 +379,8 @@ $faqs = [
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Message / Notes</label>
-                        <textarea name="notes" rows="4" placeholder="Tell us more about your needs..."></textarea>
+                        <label for="booking-notes">Message / Notes</label>
+                        <textarea id="booking-notes" name="notes" rows="4" placeholder="Tell us more about your needs..." data-mcp-field="notes"></textarea>
                     </div>
                     <button type="submit" class="submit-btn">Request Appointment</button>
                     <p id="form-message" style="margin-top: 15px; font-size: 14px; text-align: center;"></p>
@@ -579,7 +544,7 @@ $faqs = [
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
 </div>
 
-<section class="support-bot" data-support-bot aria-label="Flexi Feet support bot">
+<section class="support-bot" data-support-bot aria-label="Maya, Flexi Feet support bot">
     <button class="support-bot-toggle" type="button" data-support-toggle aria-expanded="false">
         <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 3.25c-4.7 0-8.5 3.12-8.5 6.98 0 2.18 1.25 4.16 3.21 5.45l-.54 3.07 3.23-1.66c.82.18 1.7.27 2.6.27 4.7 0 8.5-3.13 8.5-6.99S16.7 3.25 12 3.25Z"/>
@@ -592,21 +557,22 @@ $faqs = [
     <div class="support-bot-panel" data-support-panel hidden>
         <div class="support-bot-header">
             <div>
-                <strong>Flexi Feet Support Agent</strong>
+                <strong>Maya</strong>
                 <span>Grounded in Flexi Feet services, blogs, bookings, and issue tickets.</span>
             </div>
             <button type="button" data-support-toggle aria-label="Close support">×</button>
         </div>
-        <div class="support-bot-messages" data-support-messages>
-            <div class="bot-message">Ask about services, request an appointment, or report a website/service issue. For bookings, I will ask what the fitting is for, your name, contact details, and suggest available times from current appointments.</div>
-        </div>
+        <div class="support-bot-messages" data-support-messages></div>
         <div class="support-bot-actions">
             <button type="button" data-support-mode="booking">Book Fitting</button>
-            <button type="button" data-support-mode="ticket">Create Ticket</button>
+            <button type="button" data-support-mode="ticket" data-ticket-type="Issue">Create Ticket</button>
+            <button type="button" data-support-mode="ticket" data-ticket-type="Bug">Report Bug</button>
+            <button type="button" data-support-mode="ticket" data-ticket-type="Feature Request">Request Feature</button>
         </div>
         <form class="support-detail-form" data-support-detail hidden>
             <strong data-support-detail-title>Details</strong>
             <input type="hidden" name="action" value="">
+            <input type="hidden" name="type" value="Issue" data-ticket-type-input>
             <input type="text" name="name" placeholder="Name">
             <input type="email" name="email" placeholder="Email">
             <input type="tel" name="phone" placeholder="Phone">
@@ -623,12 +589,12 @@ $faqs = [
                 <option>Follow-up</option>
             </select>
             <div class="support-availability" data-availability-status hidden></div>
-            <input type="text" name="subject" placeholder="Issue subject" data-ticket-field>
+            <input type="text" name="subject" placeholder="Subject" data-ticket-field>
             <textarea name="message" rows="3" placeholder="Message"></textarea>
             <button type="submit">Submit</button>
         </form>
         <form class="support-bot-form" data-support-form>
-            <textarea name="message" rows="2" placeholder="Ask about services, blogs, booking, or report an issue" required></textarea>
+            <textarea name="message" rows="2" placeholder="Message Maya" required></textarea>
             <button type="submit">Send</button>
         </form>
     </div>
@@ -639,6 +605,6 @@ $faqs = [
 </a>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="assets/app.js"></script>
+<script src="assets/app.js?v=<?= filemtime(__DIR__ . '/assets/app.js') ?>"></script>
 </body>
 </html>

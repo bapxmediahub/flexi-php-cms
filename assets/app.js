@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Swiper: Hero Banner
-    if (document.querySelector('.hero-swiper')) {
+    if (typeof Swiper !== 'undefined' && document.querySelector('.hero-swiper')) {
         new Swiper('.hero-swiper', {
             loop: true,
             autoplay: {
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (document.querySelector('.blog-preview-swiper')) {
+    if (typeof Swiper !== 'undefined' && document.querySelector('.blog-preview-swiper')) {
         new Swiper('.blog-preview-swiper', {
             slidesPerView: 1.1,
             spaceBetween: 18,
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Swiper: Shorts (Reels Style)
-    if (document.querySelector('.shorts-swiper')) {
+    if (typeof Swiper !== 'undefined' && document.querySelector('.shorts-swiper')) {
         const shortsSwiper = new Swiper('.shorts-swiper', {
             loop: true,
             centeredSlides: true,
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Swiper: Product Styles
-    if (document.querySelector('.product-styles-swiper')) {
+    if (typeof Swiper !== 'undefined' && document.querySelector('.product-styles-swiper')) {
         new Swiper('.product-styles-swiper', {
             loop: true,
             slidesPerView: 1.15,

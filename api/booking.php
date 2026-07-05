@@ -29,6 +29,12 @@ if (empty($payload['name']) || empty($payload['phone']) || empty($payload['email
     exit;
 }
 
+$dateStatus = appointment_date_status($payload['preferred_date']);
+if (!$dateStatus['ok']) {
+    echo json_encode(['ok' => false, 'message' => $dateStatus['message']]);
+    exit;
+}
+
 $availability = appointment_availability_summary($payload['preferred_date'], $payload['preferred_time']);
 if (!$availability['open']) {
     echo json_encode(['ok' => false, 'message' => 'That date is outside our booking hours. Please choose another available date.']);
